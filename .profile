@@ -25,3 +25,9 @@ fi
 if [ -d "$HOME/.gem/ruby/1.8/bin" ] ; then
     PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
 fi
+
+# setup Oracle environment, if it's available
+if [ -x /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh ] ; then
+    . /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
+fi
+

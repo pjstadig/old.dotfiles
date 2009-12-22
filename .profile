@@ -26,6 +26,11 @@ if [ -d "$HOME/.gem/ruby/1.8/bin" ] ; then
     PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
 fi
 
+# set PATH so it includes system rubygems bin if it exists
+if [ -d "/var/lib/gems/1.8/bin" ] ; then
+    PATH="/var/lib/gems/1.8/bin:$PATH"
+fi
+
 # setup Oracle environment, if it's available
 if [ -x /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh ] ; then
     . /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh

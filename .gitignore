@@ -2,4 +2,6 @@
 !.gitignore
 !.profile
 !.gemrc
-
+!.ssh/
+!.ssh/authorized_keys
+!.ssh/id_rsa.pub

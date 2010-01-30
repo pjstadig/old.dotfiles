@@ -7,3 +7,6 @@
 	branch = auto
 [push]
 	default = matching
+[core]
+	excludesfile = /home/pstadig/.gitexcludes
+

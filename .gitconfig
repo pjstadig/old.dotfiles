@@ -1,0 +1,9 @@
+[user]
+	email = paul@stadig.name
+	name = Paul Stadig
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+[push]
+	default = matching

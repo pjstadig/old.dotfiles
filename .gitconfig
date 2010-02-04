@@ -2,11 +2,12 @@
 	email = paul@stadig.name
 	name = Paul Stadig
 [color]
-	diff = auto
-	status = auto
 	branch = auto
+	diff = auto
+	interactive = auto
+	status = auto
+	editor = emacs
 [push]
 	default = matching
 [core]
 	excludesfile = /home/pstadig/.gitexcludes
-

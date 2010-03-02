@@ -1,9 +1,11 @@
 *
 !.gitignore
 !.gitconfig
+!.gitmodules
 !.profile
 !.gemrc
 !.ssh/
 !.ssh/authorized_keys
 !.ssh/id_rsa.pub
 !.ssh/config
+!.emacs.d/

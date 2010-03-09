@@ -6,14 +6,13 @@
 	diff = auto
 	interactive = auto
 	status = auto
-	editor = emacs
 [push]
 	default = matching
 [core]
 	excludesfile = /home/pstadig/.gitexcludes
+	editor = emacs
 [alias]
         efren = commit --author 'Efren Diaz <efren088@gmail.com>' -s
-        caleb = commit --author 'Caleb Tennis <caleb.tennis@gmail.com>' -s
         bira = commit --author 'Ubiratan Pires Alberton <u.alberton@gmail.com>' -s
         murilo = commit --author 'Murilo Soares Pereira <murilo.soares3@gmail.com>' -s
         max = commit --author 'Maxsim Horbul <max@gorbul.net>' -s

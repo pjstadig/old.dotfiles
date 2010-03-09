@@ -36,3 +36,4 @@ if [ -x /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh ] 
     . /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
 fi
 
+#if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi

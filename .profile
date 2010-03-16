@@ -38,4 +38,5 @@ fi
 
 #if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
 
-test $SSH_AUTH_SOCK && ln -sf "$SSH_AUTH_SOCK" "/tmp/ssh-agent-$USER-screen"
+[[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "/tmp/ssh-agent-$USER-screen" ]] && \
+    ln -sf "$SSH_AUTH_SOCK" "/tmp/ssh-agent-$USER-screen"

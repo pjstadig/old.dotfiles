@@ -36,7 +36,8 @@ if [ -x /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh ] 
     . /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
 fi
 
-#if [[ -s "$HOME/.rvm/scripts/rvm" ]] ; then source "$HOME/.rvm/scripts/rvm" ; fi
+if [ -s "$HOME/.rvm/scripts/rvm" ] ; then source "$HOME/.rvm/scripts/rvm" ; fi
 
-[[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "/tmp/ssh-agent-$USER-screen" ]] && \
+if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "/tmp/ssh-agent-$USER-screen" ]] ; then
     ln -sf "$SSH_AUTH_SOCK" "/tmp/ssh-agent-$USER-screen"
+fi

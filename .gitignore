@@ -10,3 +10,4 @@
 !.ssh/config
 !.emacs.d/
 !.screenrc
+!.bashrc

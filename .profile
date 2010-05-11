@@ -8,7 +8,9 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-color_prompt=yes
+#TERM=xterm-256color
+
+color_prompt="yes"
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -38,8 +40,11 @@ if [ -x /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh ] 
     . /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
 fi
 
-if [ -s "$HOME/.rvm/scripts/rvm" ] ; then source "$HOME/.rvm/scripts/rvm" ; fi
-
 if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "/tmp/ssh-agent-$USER-screen" ]] ; then
     ln -sf "$SSH_AUTH_SOCK" "/tmp/ssh-agent-$USER-screen"
 fi
+
+export EDITOR="emacsclient"
+export ALTERNATE_EDITOR="emacs"
+
+if [ -s "$HOME/.rvm/scripts/rvm" ] ; then source "$HOME/.rvm/scripts/rvm" ; fi

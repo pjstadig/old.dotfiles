@@ -12,3 +12,7 @@
 !.screenrc
 !.bashrc
 !.bash_aliases
+!.profile.d/
+!.profile.d/*
+!.bashrc.d/
+!.bashrc.d/*

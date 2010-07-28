@@ -8,9 +8,11 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-#TERM=xterm-256color
-
-color_prompt="yes"
+# load files from .profile.d if they exist
+for i in `ls "$HOME"/.profile.d/[0-9][0-9]*.profile 2>/dev/null`; do
+    . "$i"
+done
+unset i
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -24,27 +26,3 @@ fi
 if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
-
-# set PATH so it includes user's rubygems bin if it exists
-if [ -d "$HOME/.gem/ruby/1.8/bin" ] ; then
-    PATH="$HOME/.gem/ruby/1.8/bin:$PATH"
-fi
-
-# set PATH so it includes system rubygems bin if it exists
-if [ -d "/var/lib/gems/1.8/bin" ] ; then
-    PATH="/var/lib/gems/1.8/bin:$PATH"
-fi
-
-# setup Oracle environment, if it's available
-if [ -x /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh ] ; then
-    . /usr/lib/oracle/xe/app/oracle/product/10.2.0/server/bin/oracle_env.sh
-fi
-
-if [[ -n "$SSH_AUTH_SOCK" && "$SSH_AUTH_SOCK" != "/tmp/ssh-agent-$USER-screen" ]] ; then
-    ln -sf "$SSH_AUTH_SOCK" "/tmp/ssh-agent-$USER-screen"
-fi
-
-export EDITOR="emacsclient"
-export ALTERNATE_EDITOR="emacs"
-
-if [ -s "$HOME/.rvm/scripts/rvm" ] ; then source "$HOME/.rvm/scripts/rvm" ; fi

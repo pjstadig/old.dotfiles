@@ -16,3 +16,5 @@
 !.profile.d/*
 !.bashrc.d/
 !.bashrc.d/*
+!bin/
+!bin/*

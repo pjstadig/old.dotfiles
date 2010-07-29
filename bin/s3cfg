@@ -1,0 +1,8 @@
+#!/bin/bash
+cfg=$HOME/.s3cfg
+newcfg=$HOME/.s3cfg_v2$1
+if [ -e $newcfg ]; then
+    ln -sf $newcfg $cfg
+else
+    echo $newcfg does not exist
+fi

@@ -18,3 +18,4 @@
 !.bashrc.d/*
 !bin/
 !bin/*
+!.profile.vagrant

@@ -9,9 +9,13 @@ else
 fi
 
 parse_git_branch() {
-  if [ `pwd` != "$HOME" ]; then
-    git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/[\1]/'
-  fi
+    branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+    if [ `git rev-parse --show-toplevel` != "$HOME" ] || [ $branch != "master" ]; then
+        branch="[$branch]"
+    else
+        branch=""
+    fi
+    echo $branch
 }
 
 if [ "$color_prompt" = yes ]; then

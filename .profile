@@ -21,3 +21,7 @@ if [ -n "$BASH_VERSION" ]; then
 	. "$HOME/.bashrc"
     fi
 fi
+
+if [ -e "$HOME/.profile.`hostname`" ]; then
+    . "$HOME/.profile.`hostname`"
+fi

@@ -1,0 +1,2 @@
+#!/bin/bash
+SSH_AUTH_SOCK=$( find `find /tmp -uid $UID -name \*ssh\* 2> /dev/null` -not -type d|head -1 ); export SSH_AUTH_SOCK

@@ -11,4 +11,3 @@
 [core]
 	excludesfile = /home/paul/.gitexcludes
 	editor = emacsclient
-[alias]

@@ -22,6 +22,12 @@ if [ -n "$BASH_VERSION" ]; then
     fi
 fi
 
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
+
+# load profile from machine specific file if it exists
 if [ -e "$HOME/.profile.`hostname`" ]; then
     . "$HOME/.profile.`hostname`"
 fi

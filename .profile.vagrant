@@ -1,4 +1,4 @@
 #-*- mode: shell-script -*-
 if [ -z $TMUX ]; then
-    tmux attach || tmux new
+    tmux attach || tmux new -s "pairing" "cd ~/src/sonian/sa-safe && emacs"
 fi

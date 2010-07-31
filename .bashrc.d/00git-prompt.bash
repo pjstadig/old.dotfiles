@@ -7,14 +7,27 @@ else
     color_prompt=
 fi
 
+join() {
+    if [ -n "$1" ] && [ -n "$2" ]; then
+        echo "$1|$2"
+    else
+        if [ -n "$1" ]; then
+            echo $1
+        fi
+    fi
+}
+
 parse_git_branch() {
-    git rev-parse --git-dir &> /dev/null
-    if [ 0 -eq $? ]; then
+    toplevel=`git rev-parse --git-dir 2> /dev/null | xargs readlink -f | xargs dirname`
+    if [ -n $toplevel ]; then
         branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-        if [ `git rev-parse --show-toplevel` != "$HOME" ] || [ $branch != "master" ]; then
-            branch="[$branch]"
+        pair=`yoke -s 2> /dev/null`
+        if ([ $toplevel != $HOME ] || [ $branch != "master" ]) || [ -n "$pair" ]; then
+            branch="[$(join $branch $pair)]"
         else
-            branch=""
+            if [ $toplevel == $HOME ]; then
+                branch=""
+            fi
         fi
     fi
     echo $branch

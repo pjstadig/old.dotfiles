@@ -98,8 +98,12 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
-# load files from .bashrc.d if they exist
-for i in `ls "$HOME"/.bashrc.d/[0-9][0-9]*.bashrc 2>/dev/null`; do
-    . "$i"
-done
-unset i
+# load files from .profile.d if they exist
+if [ -d $HOME/.bashrc.d ]; then
+  for i in $HOME/.bashrc.d/*.bash; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi

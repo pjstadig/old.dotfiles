@@ -9,10 +9,19 @@
 #umask 022
 
 # load files from .profile.d if they exist
-for i in `ls "$HOME"/.profile.d/[0-9][0-9]*.profile 2>/dev/null`; do
-    . "$i"
-done
-unset i
+if [ -d $HOME/.profile.d ]; then
+  for i in $HOME/.profile.d/*.sh; do
+    if [ -r $i ]; then
+      . $i
+    fi
+  done
+  unset i
+fi
+
+# load profile from machine specific file if it exists
+if [ -e "$HOME/.profile.`hostname`" ]; then
+    . "$HOME/.profile.`hostname`"
+fi
 
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
@@ -20,14 +29,4 @@ if [ -n "$BASH_VERSION" ]; then
     if [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
     fi
-fi
-
-# set PATH so it includes user's private bin if it exists
-if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
-fi
-
-# load profile from machine specific file if it exists
-if [ -e "$HOME/.profile.`hostname`" ]; then
-    . "$HOME/.profile.`hostname`"
 fi

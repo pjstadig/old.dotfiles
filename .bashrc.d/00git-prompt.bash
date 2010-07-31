@@ -18,8 +18,9 @@ join() {
 }
 
 parse_git_branch() {
-    toplevel=`git rev-parse --git-dir 2> /dev/null | xargs readlink -f | xargs dirname`
-    if [ -n $toplevel ]; then
+    toplevel=`git rev-parse --git-dir 2> /dev/null`
+    if [ -n "$toplevel" ]; then
+        toplevel=`readlink -f $toplevel | xargs dirname`
         branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
         pair=`yoke -s 2> /dev/null`
         if ([ $toplevel != $HOME ] || [ $branch != "master" ]) || [ -n "$pair" ]; then

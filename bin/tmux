@@ -1,0 +1,15 @@
+#!/bin/bash
+fingerprint="f3:2d:05:e2:52:66:1c:e7:4f:2c:4e:0b:6d:d1:6d:79"
+auth_sock=/tmp/$USER-tmux-ssh-agent
+ssh-add -l 2> /dev/null | grep $fingerprint &> /dev/null
+if [ $? -eq 0 ]; then
+    # The current ssh-agent has our target key
+    SSH_AUTH_SOCK=$auth_sock ssh-add -l 2> /dev/null | grep $fingerprint &> /dev/null
+    if [ $? -ne 0 ]; then
+        # $auth_sock is either non-existent or broken, so replace it
+        ln -sf $SSH_AUTH_SOCK $auth_sock
+    fi
+fi
+
+export SSH_AUTH_SOCK=$auth_sock
+exec /usr/bin/tmux "$@"

@@ -19,3 +19,5 @@
 !bin/*
 !.profile.vagrant
 !.tmux.conf
+!.aspell.en.pws
+!.aspell.en.prepl

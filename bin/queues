@@ -1,0 +1,4 @@
+#!/bin/bash
+
+vhost=$1; shift
+rabbitmqctlsh list_queues -p $vhost name messages messages_unacknowledged | grep -v merge | grep $@

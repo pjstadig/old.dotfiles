@@ -5,7 +5,6 @@
 !.profile
 !.gemrc
 !.ssh/
-!.ssh/authorized_keys
 !.ssh/id_rsa.pub
 !.ssh/config.d/
 !.ssh/config.d/99wildcard.conf

@@ -24,6 +24,9 @@ parse_git_branch() {
         home=`readlink -f $HOME`
         branch=`git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
         pair=`yoke -s 2> /dev/null`
+	if [ $? -ne 0 ]; then
+	    pair=""
+	fi
         if ([ $toplevel != $home ] || [ $branch != "master" ]) || [ -n "$pair" ]; then
             branch="[$(join $branch $pair)]"
         else

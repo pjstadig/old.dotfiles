@@ -10,7 +10,7 @@
 	default = tracking
 [core]
 	excludesfile = /home/paul/.gitexcludes
-	editor = emacsclient
+	editor = /usr/bin/emacsclient -nw
 [alias]
 	co = checkout
 	br = branch

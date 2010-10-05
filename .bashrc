@@ -107,3 +107,8 @@ if [ -d $HOME/.bashrc.d ]; then
   done
   unset i
 fi
+
+# run machine specific bashrc file if it exists
+if [ -e "$HOME/.bashrc.`hostname`" ]; then
+    . "$HOME/.bashrc.`hostname`"
+fi

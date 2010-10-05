@@ -18,16 +18,15 @@ if [ -d $HOME/.profile.d ]; then
   unset i
 fi
 
+# load profile from machine specific file if it exists
+if [ -e "$HOME/.profile.`hostname`" ]; then
+    . "$HOME/.profile.`hostname`"
+fi
+
 # if running bash
 if [ -n "$BASH_VERSION" ]; then
     # include .bashrc if it exists
     if [ -f "$HOME/.bashrc" ]; then
 	. "$HOME/.bashrc"
     fi
-fi
-
-# load profile from machine specific file if it exists
-# this needs to be after the .bashrc so the TERM is set properly
-if [ -e "$HOME/.profile.`hostname`" ]; then
-    . "$HOME/.profile.`hostname`"
 fi

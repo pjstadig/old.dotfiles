@@ -18,7 +18,7 @@
 !.bashrc.d/*
 !bin/
 !bin/*
-!.profile.vagrant
+!.bashrc.vagrant
 !.tmux.conf
 !.aspell.en.pws
 !.aspell.en.prepl

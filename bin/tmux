@@ -12,4 +12,5 @@ if [ $? -eq 0 ]; then
 fi
 
 export SSH_AUTH_SOCK=$auth_sock
+emacsclient --eval "(setenv \"SSH_AUTH_SOCK\" \"$auth_sock\")"
 exec /usr/bin/tmux "$@"

@@ -1,0 +1,5 @@
+#!/usr/bin/ruby
+name, message = ARGV
+if message =~ /paul/i
+  system "notify-send \"#{name} says: #{message}\""
+end

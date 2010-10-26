@@ -1,5 +1,5 @@
 #!/usr/bin/ruby
 name, message = ARGV
 if message =~ /paul/i
-  system "notify-send \"#{name} says: #{message}\""
+  system "notify-send -i /usr/share/icons/skype.png \"#{name} says:\" \"#{message}\""
 end

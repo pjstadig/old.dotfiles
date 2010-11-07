@@ -4,6 +4,6 @@ if [ -z $TMUX ]; then
     if [ $? -eq 0 ]; then
         tmux att
     else
-        tmux new -s "pairing" "cd ~/src/sonian/sa-safe && emacs"
+        tmux new -s "pairing" "cd ~/src/sonian/sa-safe && /usr/bin/emacsclient -t"
     fi
 fi

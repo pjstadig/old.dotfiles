@@ -1,1 +1,3 @@
-keychain -Q -q id_rsa
+if [ -x keychain ]; then
+    keychain -Q -q id_rsa
+fi

@@ -1,0 +1,6 @@
+#!/bin/bash
+if [ $1 = "ssh" ]; then
+   /usr/bin/knife "$@" -a ec2.public_hostname -x paul
+else
+   /usr/bin/knife "$@"
+fi

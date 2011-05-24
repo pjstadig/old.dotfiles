@@ -1,6 +1,7 @@
 #!/bin/sh
 
-export LEIN_VERSION="1.4.0"
+LEIN_VERSION="1.5.0"
+export LEIN_VERSION
 
 case $LEIN_VERSION in
     *SNAPSHOT) SNAPSHOT="YES" ;;
@@ -36,7 +37,7 @@ fi
 
 LEIN_PLUGINS="$(ls -1 lib/dev/*jar 2> /dev/null | tr \\n \:)"
 LEIN_USER_PLUGINS="$(ls -1 $LEIN_HOME/plugins/*jar 2> /dev/null | tr \\n \:)"
-CLASSPATH=$LEIN_USER_PLUGINS:$LEIN_PLUGINS:test/:src/:$CLASSPATH
+CLASSPATH=$CLASSPATH:$LEIN_USER_PLUGINS:$LEIN_PLUGINS:test/:src/
 LEIN_JAR="$HOME/.lein/self-installs/leiningen-$LEIN_VERSION-standalone.jar"
 CLOJURE_JAR="$HOME/.m2/repository/org/clojure/clojure/1.2.0/clojure-1.2.0.jar"
 NULL_DEVICE=/dev/null
@@ -65,7 +66,7 @@ if [ -r "$BIN_DIR/../src/leiningen/core.clj" ]; then
     # Running from source checkout
     LEIN_DIR="$(dirname "$BIN_DIR")"
     LEIN_LIBS="$(find -H $LEIN_DIR/lib -mindepth 2> /dev/null 1 -maxdepth 1 -print0 | tr \\0 \:)"
-    CLASSPATH="$LEIN_DIR/src:$LEIN_DIR/resources:$LEIN_LIBS:$CLASSPATH:$LEIN_JAR"
+    CLASSPATH="$CLASSPATH:$LEIN_LIBS:$LEIN_DIR/src:$LEIN_DIR/classes:$LEIN_DIR/resources:$LEIN_JAR"
 
     if [ "$LEIN_LIBS" = "" -a "$1" != "self-install" -a ! -r "$LEIN_JAR" ]; then
         echo "Leiningen is missing its dependencies. Please see \"Building\" in the README."
@@ -73,7 +74,7 @@ if [ -r "$BIN_DIR/../src/leiningen/core.clj" ]; then
     fi
 else
     # Not running from a checkout
-    CLASSPATH="$LEIN_JAR:$CLASSPATH"
+    CLASSPATH="$CLASSPATH:$LEIN_JAR"
 
     if [ ! -r "$LEIN_JAR" -a "$1" != "self-install" ]; then
         "$0" self-install
@@ -87,6 +88,9 @@ fi
 
 JAVA_CMD=${JAVA_CMD:-"java"}
 
+# Support $JAVA_OPTS for backwards-compatibility.
+JVM_OPTS=${JVM_OPTS:-$JAVA_OPTS}
+
 # If you're packaging this for a package manager (.deb, homebrew, etc)
 # you need to remove the self-install and upgrade functionality.
 if [ "$1" = "self-install" ]; then
@@ -98,7 +102,9 @@ if [ "$1" = "self-install" ]; then
     if [ $? != 0 ]; then
         echo "Failed to download $LEIN_URL"
         if [ $SNAPSHOT = "YES" ]; then
-            echo "See README.md for SNAPSHOT build instructions."
+            echo "If you have Maven installed, you can do"
+            echo "mvn dependency:copy-dependencies; mv target/dependency lib"
+            echo "See README.md for further SNAPSHOT build instructions."
         fi
         rm $LEIN_JAR 2> /dev/null
         exit 1
@@ -120,8 +126,10 @@ elif [ "$1" = "upgrade" ]; then
             y|Y|"")
                 echo
                 echo "Upgrading..."
+                TARGET="/tmp/lein-$$-upgrade"
                 LEIN_SCRIPT_URL="https://github.com/technomancy/leiningen/raw/stable/bin/lein"
-                $HTTP_CLIENT "$SCRIPT" "$LEIN_SCRIPT_URL" \
+                $HTTP_CLIENT "$TARGET" "$LEIN_SCRIPT_URL" \
+                    && mv "$TARGET" "$SCRIPT" \
                     && chmod +x "$SCRIPT" \
                     && echo && $SCRIPT self-install && echo && echo "Now running" `$SCRIPT version`
                 exit $?;;
@@ -150,6 +158,10 @@ else
         # Use rlwrap if it's available, otherwise fall back to JLine
         RLWRAP=`which rlwrap`
         if [ ! -x "$RLWRAP" ] || [ "$RLWRAP" = "" ]; then
+            if [ ! -r "$LEIN_HOME/.jline-warn" ]; then
+                echo "Using JLine for console I/O; install rlwrap for optimum experience."
+                touch "$LEIN_HOME/.jline-warn"
+            fi
             RLWRAP=""
             JLINE=jline.ConsoleRunner
             if [ "$OSTYPE" = "cygwin" ]; then
@@ -164,8 +176,8 @@ else
     # slower JVM boot.
     # TODO: add more to the boot classpath
     test $CYGWIN_JLINE && stty -icanon min 1 -echo
-    exec $RLWRAP $JAVA_CMD -Xbootclasspath/a:"$CLOJURE_JAR" -client $JAVA_OPTS \
-        -Dleiningen.original.pwd=$ORIGINAL_PWD \
+    exec $RLWRAP $JAVA_CMD -Xbootclasspath/a:"$CLOJURE_JAR" -client $JVM_OPTS \
+        -Dleiningen.original.pwd="$ORIGINAL_PWD" \
         -cp "$CLASSPATH" $JLINE clojure.main -e "(use 'leiningen.core)(-main)" \
         $NULL_DEVICE $@
     test $CYGWIN_JLINE && stty icanon echo

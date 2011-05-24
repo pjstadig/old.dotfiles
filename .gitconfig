@@ -18,3 +18,8 @@
 	st = status
 	unstage = reset HEAD --
 	last = log -1 HEAD
+[diff "clojure"]
+      xfuncname = "^\\(.*"
+[github]
+	user = pjstadig
+	token = !cat ~/.github.token

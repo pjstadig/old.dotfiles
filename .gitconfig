@@ -9,7 +9,7 @@
 [push]
 	default = tracking
 [core]
-	excludesfile = /home/paul/.gitexcludes
+	excludesfile = ~/.gitexcludes
 	editor = /usr/bin/emacsclient -nw
 [alias]
 	co = checkout

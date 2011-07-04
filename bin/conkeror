@@ -1,1 +1,8 @@
-../src/conkeror/contrib/run-conkeror
+#!/bin/bash
+if [ ! -e ~/src/conkeror ]; then
+   pushd ~/src >/dev/null
+   git clone git://repo.or.cz/conkeror.git
+   popd >/dev/null
+fi
+
+exec ~/src/conkeror/contrib/run-conkeror "$@"

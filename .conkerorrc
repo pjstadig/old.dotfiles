@@ -1,0 +1,78 @@
+// -*- Mode: espresso -*-
+
+load_paths.push("file:///home/paul/.conkeror");
+require("new-gmail.js");
+require("new-google-calendar.js");
+
+//require("mycrossoverpoint.js");
+
+user_pref("conkeror.load.page-modes/gmail", 0);
+user_pref("conkeror.load.page-modes/google-calendar", 0);
+
+interactive("fill-domain", "Fill the minibuffer with the current domain.",
+            function (I) {
+              var field = I.minibuffer.input_element;
+              var paths = String(I.window.content.location).split('/');
+var domain = paths[0] + "/" + paths[1] + "/" + paths[2] + "/";
+field.value = domain;
+            });
+
+define_key(minibuffer_keymap, "C-/", "fill-domain");
+
+//define_webjump("hub", "http://github.com/search?q=%s");
+//define_webjump("twitter", "http://twitter.com/#search?q=%s");
+//define_webjump("wikipedia", "http://www.google.com/search?q=wikipedia+%s&btnI=I'm Feeling Lucky");
+//define_webjump("mvn", "http://jarvana.com/jarvana/search?search_type=project&project=%s");
+define_webjump("java", "http://javadocs.org/%s/");
+define_webjump("az", "https://agilezen.com/project/12433/story/%s");
+
+key_bindings_ignore_capslock = true;
+url_remoting_fn = load_url_in_new_buffer;
+url_completion_use_history = true;
+url_completion_use_bookmarks = false;
+can_kill_last_buffer = false;
+download_buffer_automatic_open_target = OPEN_NEW_BUFFER_BACKGROUND;
+
+register_user_stylesheet(
+  "data:text/css,"+
+    escape("#minibuffer, tree.completions, .mode-line { font-family: Inconsolata; font-size: 12pt; }"));
+
+register_user_stylesheet(
+  "data:text/css," +
+    escape (".topsearch input { width: 2em; };"));
+
+// fix for AgileZen story details, to show the current lane
+register_user_stylesheet(
+  "data:text/css,"+
+    escape("@-moz-document domain(agilezen.com) { #progress a.current { background-color:#ffffde !important;}}"));
+
+// Thanks; _why!
+function resize_textarea_up(field) {
+  var h = field.offsetHeight;
+  if (h > 120)
+    field.style.height = (h - 60) + "px";
+}
+function resize_textarea_down(field) {
+  field.style.height = (parseInt(field.offsetHeight) + 60) + "px";
+}
+interactive(
+  "resize-textarea-up",
+  "Resize a textarea to be smaller.",
+  function (I) { call_on_focused_field(I, resize_textarea_up); }
+);
+interactive(
+  "resize-textarea-down",
+  "Resize a textarea to be taller.",
+  function (I) { call_on_focused_field(I, resize_textarea_down); }
+);
+
+define_key(content_buffer_textarea_keymap, "C-up", "resize-textarea-up", $category = "Movement");
+define_key(content_buffer_textarea_keymap, "C-down", "resize-textarea-down", $category = "Movement");
+
+//require("page-modes/google-search-results.js");
+//auto_mode_list.push([build_url_regex($domain = /google\.com/),
+//                     google_search_results_mode]);
+
+user_pref('extensions.mozrepl.autoStart', true);
+
+xkcd_add_title = true;

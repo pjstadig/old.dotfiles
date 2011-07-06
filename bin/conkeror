@@ -1,8 +1,13 @@
 #!/bin/bash
 if [ ! -e ~/src/conkeror ]; then
    pushd ~/src >/dev/null
-   git clone git://repo.or.cz/conkeror.git
+   if ! git clone git://repo.or.cz/conkeror.git; then
+       popd >/dev/null
+       echo "!!! Failed to clone conkeror repo"
+       exit 1
+   fi
    popd >/dev/null
+   echo "Done setting up conkeror"
 fi
 
 exec ~/src/conkeror/contrib/run-conkeror "$@"

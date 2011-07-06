@@ -1,0 +1,11 @@
+
+[Desktop Entry]
+Type=Application
+Exec=keychain -q id_rsa
+Hidden=false
+NoDisplay=false
+X-GNOME-Autostart-enabled=true
+Name[en_US]=Load SSH private key
+Name=Load SSH private key
+Comment[en_US]=Load SSH private key
+Comment=Load SSH private key

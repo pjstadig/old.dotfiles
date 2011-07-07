@@ -6,14 +6,13 @@ if [ ! -e ~/src/leiningen ]; then
        echo "!!! Failed to clone leiningen repo"
        exit 1
    fi
+   popd >/dev/null
    pushd ~/src/leiningen >/dev/null
    if ! lein-stable deps; then
-       popd >/dev/null
        popd >/dev/null
        echo "!!! Failed to download leiningen deps"
        exit 2
    fi
-   popd >/dev/null
    popd >/dev/null
    echo "Done setting up leiningen"
 fi

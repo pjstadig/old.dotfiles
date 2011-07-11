@@ -18,6 +18,7 @@
 !/.bashrc.d/*
 !/bin/
 !/bin/*
+/bin/mvn
 !/.bashrc.vagrant
 !/.tmux.conf
 !/.aspell.en.pws

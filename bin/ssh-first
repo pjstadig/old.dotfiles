@@ -1,5 +1,4 @@
 #!/bin/bash
-
-server=`knife status "role:$1" |cut -f4 -d, |tail -n1`
+server=`knife-first $1`
 shift
 ssh $server "$@"

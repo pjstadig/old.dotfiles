@@ -1,0 +1,2 @@
+#!/bin/bash
+knife status "role:$1" |cut -f4 -d, |tail -n1

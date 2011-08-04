@@ -1,6 +1,18 @@
 #!/bin/bash
+if [ -e .chef/knife.rb ]; then
+    chef=true
+fi
+
+if [ -z $chef ]; then
+    pushd ~/src/sonian/sa-chef-repo &>/dev/null
+fi
+
 if [ $1 = "ssh" ]; then
    /usr/bin/knife "$@" -a ec2.public_hostname -x paul
 else
    /usr/bin/knife "$@"
+fi
+
+if [ -z $chef ]; then
+    popd &>/dev/null
 fi

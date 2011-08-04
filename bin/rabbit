@@ -1,0 +1,3 @@
+#!/bin/bash
+server=`knife-first rabbitmq\*`
+ssh -t $server watch -n 5 -d -t "sudo rabbitmqctl list_queues -p production-2010-05-08 messages messages_unacknowledged name \| grep safe \| sort -k3"

@@ -1,2 +1,2 @@
 export ENV=dev
-export OPSCODE_USER=sonian_developer
+export OPSCODE_USER=sonian_devs

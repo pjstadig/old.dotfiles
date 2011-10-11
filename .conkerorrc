@@ -25,6 +25,8 @@ define_key(minibuffer_keymap, "C-/", "fill-domain");
 //define_webjump("mvn", "http://jarvana.com/jarvana/search?search_type=project&project=%s");
 define_webjump("java", "http://javadocs.org/%s/");
 define_webjump("az", "https://agilezen.com/project/12433/story/%s");
+define_webjump("j", "http://sonian.onjira.com/browse/ENG-%s");
+define_webjump("c", "http://dev.clojure.org/jira/browse/%s");
 
 key_bindings_ignore_capslock = true;
 url_remoting_fn = load_url_in_new_buffer;

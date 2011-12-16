@@ -1,0 +1,3 @@
+#!/bin/bash
+cd ~/src/sonian/elasticsearch
+exec bin/elasticsearch

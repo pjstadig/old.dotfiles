@@ -8,9 +8,9 @@ if [ -z $chef ]; then
 fi
 
 if [ $1 = "ssh" ]; then
-   /usr/bin/knife "$@" -a ec2.public_hostname -x paul
+   ~/.gem/ruby/1.8/bin/knife "$@" -a ec2.public_hostname -x paul
 else
-   /usr/bin/knife "$@"
+   ~/.gem/ruby/1.8/bin/knife "$@"
 fi
 
 if [ -z $chef ]; then

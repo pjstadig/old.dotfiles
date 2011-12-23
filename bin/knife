@@ -7,10 +7,18 @@ if [ -z $chef ]; then
     pushd ~/src/sonian/sa-chef-repo &>/dev/null
 fi
 
-if [ $1 = "ssh" ]; then
-   ~/.gem/ruby/1.8/bin/knife "$@" -a ec2.public_hostname -x paul
+if [ -x ~/.gem/ruby/1.8/bin/knife ]; then
+    knife=~/.gem/ruby/1.8/bin/knife
 else
-   ~/.gem/ruby/1.8/bin/knife "$@"
+    if [ -x /usr/bin/knife ]; then
+        knife=/usr/bin/knife
+    fi
+fi
+
+if [ $1 = "ssh" ]; then
+   $knife "$@" -a ec2.public_hostname -x paul
+else
+   $knife "$@"
 fi
 
 if [ -z $chef ]; then

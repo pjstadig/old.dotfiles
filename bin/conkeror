@@ -1,5 +1,8 @@
 #!/bin/bash
 if [ ! -e ~/src/conkeror ]; then
+    if [ ! -e ~/src ]; then
+        mkdir ~/src
+    fi
     pushd ~/src >/dev/null
     if ! git clone git://repo.or.cz/conkeror.git; then
         popd >/dev/null
@@ -21,4 +24,8 @@ if [ ! -e ~/src/conkeror/conkeror-spawn-helper ]; then
     echo "Done setting up compiling conkeror-spawn-helper"
 fi
 
-exec ~/src/conkeror/contrib/run-conkeror "$@"
+if [ -x /usr/bin/xulrunner ]; then
+    exec /usr/bin/xulrunner ~/src/conkeror/application.ini "$@"
+else
+    exec /usr/bin/firefox -app ~/src/conkeror/application.ini "$@"
+fi

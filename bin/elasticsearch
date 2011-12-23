@@ -1,3 +1,7 @@
 #!/bin/bash
-cd ~/src/sonian/elasticsearch
-exec bin/elasticsearch
+if [ -e ~/src/sonian/elasticsearch ]; then
+    cd ~/src/sonian/elasticsearch
+    exec bin/elasticsearch
+else
+    echo "Please download elasticsearch and install it at ~/src/sonian/elasticsearch"
+fi

@@ -1,0 +1,44 @@
+(in-package :stumpwm)
+
+(mapcar #'load-module '("cpu"
+                        "mem"
+                        "battery-portable"
+                        "net"
+                        "wifi"
+                        "disk"))
+
+(defconstant *day-names*
+  '("Mon" "Tue" "Wed" "Thu" "Fri" "Sat" "Sun"))
+
+(defun current-date ()
+  "Returns the date formatted as `2009-11-16 Mon 11:34:03'."
+  (multiple-value-bind
+      (second minute hour date month year day-of-week dst-p tz)
+      (get-decoded-time)
+    (format nil "~d-~2,'0d-~2,'0d ~a ^B~2,'0d:~2,'0d:~2,'0d^b"
+            year month date (nth day-of-week *day-names*)
+            hour minute second)))
+
+;; FIXME ppp0 comes after lo0; hence, the IP is wrong
+(defun current-ip ()
+  "Returns the IP address in CIDR notation."
+  (run-shell-command
+   "IP_ADDRESS=`ifconfig | grep 'inet addr:' | head -n 1 | sed 's/.*addr:\\([0-9.]*\\).*/\\1/'`; NETMASK=`ifconfig | grep 'inet addr:' | head -n 1 | sed 's/.*Mask:\\([0-9.]*\\).*/\\1/'`; NETWORK=`ipcalc -n -b $IP_ADDRESS $NETMASK | grep Network | awk '{print $2}'`; echo -n IP:$IP_ADDRESS`echo $NETWORK | sed 's/.*\\(\\/.*\\)/\\1/g' | tr -d '[:cntrl:]'`"
+   t))
+
+(defun current-gw ()
+  "Returns the default gateway."
+  (run-shell-command
+   "echo -n Gw:`ip route show | grep default | awk '{print $3}' | tr -d '[:cntrl:]'`"
+   t))
+
+(setf *screen-mode-line-format*
+      (list
+       ;; cpu | mem | battery
+       " | %D | %c %C (%f) %t | %M | %B"))
+
+;; how many seconds elapse between each update of the modeline
+(setf *mode-line-timeout* 1) ; must be set *before* turning on the modeline
+
+(if (not (head-mode-line (current-head)))
+    (toggle-mode-line (current-screen) (current-head)))

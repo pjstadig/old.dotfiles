@@ -42,3 +42,10 @@
 
 (if (not (head-mode-line (current-head)))
     (toggle-mode-line (current-screen) (current-head)))
+
+;; Volume control
+(define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioLowerVolume") "exec volume down")
+(define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioRaiseVolume") "exec volume up")
+
+;; Mute
+(define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioMute") "exec volume mute")

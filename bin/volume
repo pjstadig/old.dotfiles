@@ -1,0 +1,61 @@
+#!/bin/bash
+# for use with pulseaudio
+# based losely on http://crunchbanglinux.org/forums/topic/11392/pulseaudio-volume-control-with-media-keys/
+# 2011-12-24
+if [ -z $1 ]; then
+    echo "Expected a command" >&2
+    exit 1
+fi
+
+inc=3277
+min=0
+max=65535
+if [ -e ~/.volume ]; then
+    volume=`cat ~/.volume`
+else
+    volume=0
+fi
+
+case $1 in
+    up)
+        echo "up"
+        if [ $volume -ge 0 ]; then
+            volume=$(($volume + $inc))
+            if [ $volume -gt $max ]; then
+                volume=$max
+            fi
+        else
+            volume=$(($volume * -1))
+        fi
+        ;;
+    down)
+        echo "down"
+        if [ $volume -ge 0 ]; then
+            volume=$(($volume - $inc))
+            if [ $volume -lt $min ]; then
+                volume=$min
+            fi
+        else
+            volume=$(($volume * -1))
+        fi
+        ;;
+    mute)
+        echo "mute"
+        volume=$(($volume * -1))
+        ;;
+    set)
+        volume=$2
+        if [ $volume -lt $min ]; then
+            $volume=$min
+        fi
+        if [ $volume -gt $max ]; then
+            $volume=$max
+        fi
+esac
+echo $volume > ~/.volume
+if [ $volume -ge 0 ]; then
+    pactl set-sink-mute 0 0
+    pactl set-sink-volume 0 $volume
+else
+    pactl set-sink-mute 0 1
+fi

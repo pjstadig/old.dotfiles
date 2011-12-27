@@ -1,5 +1,0 @@
-#!/bin/bash
-if [ -a ~/.editdns ]; then
-    . ~/.editdns
-    /usr/bin/wget -q -O- "http://DynDNS.EditDNS.net/api/dynLinux.php?p=$EDITDNSPASS&r=$EDITDNSRECORD" 1>/dev/null
-fi

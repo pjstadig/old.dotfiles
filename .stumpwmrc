@@ -53,3 +53,11 @@
 (defcommand reinit () ()
   "docstring"
   (run-commands "reload" "loadrc"))
+
+(define-key *root-map* (kbd "L") "quit")
+
+(run-shell-command "/usr/bin/keychain -Q -q id_rsa")
+
+(defcommand emacs () ()  ;! redefining emacs command
+  "Start Emacs or switch to it, if it is already running."
+  (run-or-raise "emacsclient -c" '(:class "Emacs")))

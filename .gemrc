@@ -8,6 +8,5 @@ gem: --no-rdoc --no-ri --user-install
 - http://rubygems.org
 - http://gems.github.com
 - http://gems.rubyforge.org
-- http://gems.opscode.com
 :bulk_threshold: 1000
 rdoc: --inline-source --line-numbers --format=html --template=hanna

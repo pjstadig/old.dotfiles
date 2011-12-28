@@ -26,3 +26,7 @@
 !/.config/
 !/.config/autostart/
 !/.config/autostart/*
+!/.mpd/
+/.mpd/*
+!/.mpd/playlists/
+!/.mpd/playlists/*

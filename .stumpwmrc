@@ -40,6 +40,11 @@
 ;; Mute
 (define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioMute") "exec volume mute")
 
+;; Play/Pause
+(define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioPlay") "exec play")
+(define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioPrev") "exec mpc prev")
+(define-key stumpwm:*top-map* (stumpwm:kbd "XF86AudioNext") "exec mpc next")
+
 ;; width in pixels given to the borders of windows with maxsize or ratio
 ;; hints
 (setf *maxsize-border-width* 1)

@@ -63,14 +63,32 @@
 
 (run-shell-command "/usr/bin/keychain -Q -q id_rsa")
 
+(defcommand terminal () ()
+  "Start terminal or switch to it, if it is already running."
+  (run-or-raise "xfce4-terminal" '(:instance "xfce4-terminal")))
+
+(define-key *top-map* (kbd "s-1") "terminal")
+
 (defcommand emacs () ()  ;! redefining emacs command
   "Start Emacs or switch to it, if it is already running."
   (run-or-raise "emacsclient -c" '(:class "Emacs")))
 
-(define-key *top-map* (kbd "s-1") "emacs")
+(define-key *top-map* (kbd "s-2") "emacs")
 
 (defcommand conkeror () ()
   "Start Conkeror or switch to it, if it is already running."
   (run-or-raise "conkeror" '(:class "Conkeror")))
 
 (define-key *top-map* (kbd "s-3") "conkeror")
+
+(defcommand skype () ()
+  "Start Skype or switch to it, if it is already running."
+  (run-or-raise "skype" '(:class "Skype")))
+
+(define-key *top-map* (kbd "s-4") "skype")
+
+(defcommand pidgin () ()
+  "Start Pidgin or switch to it, if it is already running."
+  (run-or-raise "pidgin" '(:class "Pidgin")))
+
+(define-key *top-map* (kbd "s-5") "pidgin")

@@ -1,4 +1,6 @@
-;;-*- lisp -*-
+;; -*- lisp -*-
+;; tell debian's stumpwm launcher to use sbcl
+;; debian=sbcl
 (in-package :stumpwm)
 
 (mapcar #'load-module '("cpu"

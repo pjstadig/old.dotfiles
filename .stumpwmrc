@@ -66,3 +66,11 @@
 (defcommand emacs () ()  ;! redefining emacs command
   "Start Emacs or switch to it, if it is already running."
   (run-or-raise "emacsclient -c" '(:class "Emacs")))
+
+(define-key *top-map* (kbd "s-1") "emacs")
+
+(defcommand conkeror () ()
+  "Start Conkeror or switch to it, if it is already running."
+  (run-or-raise "conkeror" '(:class "Conkeror")))
+
+(define-key *top-map* (kbd "s-3") "conkeror")

@@ -1,0 +1,9 @@
+#-*- mode: shell-script -*-
+if [ -z $TMUX ]; then
+    tmux has-session &> /dev/null
+    if [ $? -eq 0 ]; then
+        exec tmux att
+    else
+        exec tmux new -s "pairing" "cd ~/src/sonian/sa-safe; /usr/bin/emacsclient -t"
+    fi
+fi

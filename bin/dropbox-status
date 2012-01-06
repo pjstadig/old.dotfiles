@@ -1,0 +1,15 @@
+#!/bin/bash
+dropbox status > /tmp/dropbox-status
+if grep "Dropbox isn't running" /tmp/dropbox-status >/dev/null; then
+    echo -n X
+else
+    if grep Uploading /tmp/dropbox-status >/dev/null; then
+        echo -n U
+    else
+        if grep Downloading /tmp/dropbox-status >/dev/null; then
+            echo -n D
+        else
+            echo -n " "
+        fi
+    fi
+fi

@@ -22,12 +22,15 @@
             year month date (nth day-of-week *day-names*)
             hour minute second)))
 
+(defun dropbox-status ()
+  (run-shell-command "dropbox-status" t))
+
 (setf *screen-mode-line-format*
       (list
        ;; date
        "^6*" '(:eval (current-date)) ; defined above
        ;; cpu | mem | battery
-       " | %D | %c %C (%f) %t | %M | %B"))
+       " | %D | %c %C (%f) %t | %M | %B | " '(:eval (dropbox-status))))
 
 ;; how many seconds elapse between each update of the modeline
 (setf *mode-line-timeout* 1) ; must be set *before* turning on the modeline

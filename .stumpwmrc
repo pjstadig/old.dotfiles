@@ -25,12 +25,16 @@
 (defun dropbox-status ()
   (run-shell-command "dropbox-status" t))
 
+(defun mpc-current ()
+  (run-shell-command "mpc current" t))
+
 (setf *screen-mode-line-format*
       (list
        ;; date
        "^6*" '(:eval (current-date)) ; defined above
        ;; cpu | mem | battery
-       " | %D | %c %C (%f) %t | %M | %B | " '(:eval (dropbox-status))))
+       " | %D | %c %C (%f) %t | %M | %B | " '(:eval (dropbox-status))
+       " | " '(:eval (mpc-current))))
 
 ;; how many seconds elapse between each update of the modeline
 (setf *mode-line-timeout* 1) ; must be set *before* turning on the modeline

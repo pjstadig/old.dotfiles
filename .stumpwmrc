@@ -26,7 +26,7 @@
   (run-shell-command "dropbox-status" t))
 
 (defun mpc-current ()
-  (run-shell-command "mpc current" t))
+  (run-shell-command "mpc-current" t))
 
 (setf *screen-mode-line-format*
       (list

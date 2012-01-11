@@ -1,5 +1,6 @@
 // -*- Mode: espresso -*-
 
+set_user_agent("Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1");
 load_paths.push("file:///home/paul/.conkeror");
 require("new-gmail.js");
 require("new-google-calendar.js");

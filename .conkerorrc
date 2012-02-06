@@ -1,6 +1,6 @@
 // -*- Mode: espresso -*-
 
-set_user_agent("Mozilla/5.0 (Ubuntu; X11; Linux x86_64; rv:9.0.1) Gecko/20100101 Firefox/9.0.1");
+set_user_agent("Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:10.0) Gecko/20100101 Firefox/10.0");
 
 interactive("fill-domain", "Fill the minibuffer with the current domain.",
             function (I) {
